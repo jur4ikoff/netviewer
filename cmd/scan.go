@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"fmt"
-
+	scanner "github.com/jur4ikoff/netviewer/internal/commands"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
 
@@ -16,12 +16,20 @@ var scanCmd = &cobra.Command{
 	Use:   "scan",
 	Short: "Scan TCP ports",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf(
+		ctx := cmd.Context()
+		portScanner := scanner.NewScanner()
+
+		log.Ctx(ctx).Info().Msgf(
 			"Scanning %s ports %d-%d\n",
 			host,
 			from,
 			to,
 		)
+		err := portScanner.Scan(ctx, &scanner.ScanRequest{Host: host, From: from, To: to})
+		if err != nil {
+			// TODO handler
+		}
+
 	},
 }
 

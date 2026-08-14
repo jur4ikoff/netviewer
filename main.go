@@ -1,7 +1,18 @@
 package main
 
-import "github.com/jur4ikoff/netviewer/cmd"
+import (
+	"context"
+
+	"github.com/jur4ikoff/netviewer/cmd"
+	logger "github.com/jur4ikoff/netviewer/internal"
+)
 
 func main() {
-	cmd.Execute()
+	logger := logger.NewLogger()
+	ctx := logger.WithContext(context.Background())
+
+	err := cmd.Execute(ctx)
+	if err != nil {
+		// TODO make log
+	}
 }
