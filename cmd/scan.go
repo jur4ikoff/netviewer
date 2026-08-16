@@ -19,17 +19,11 @@ var scanCmd = &cobra.Command{
 		ctx := cmd.Context()
 		portScanner := scanner.NewScanner()
 
-		log.Ctx(ctx).Info().Msgf(
-			"Scanning %s ports %d-%d\n",
-			host,
-			from,
-			to,
-		)
+		log.Ctx(ctx).Info().Msgf("Scanning %s ports %d-%d", host, from, to)
 		err := portScanner.Scan(ctx, &scanner.ScanRequest{Host: host, From: from, To: to})
 		if err != nil {
-			// TODO handler
+			log.Ctx(ctx).Fatal().Err(err).Msgf("failed to scan host %s", host)
 		}
-
 	},
 }
 

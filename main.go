@@ -13,6 +13,6 @@ func main() {
 
 	err := cmd.Execute(ctx)
 	if err != nil {
-		// TODO make log
+		logger.Fatal().Err(err).Msg("failed to execute command")
 	}
 }
